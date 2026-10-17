@@ -8,6 +8,7 @@ class kgram {
         unsigned k; // Length of kgram
         std::string kgram_str; // Actual kgram string
         unsigned total_count; // Nr. of times kgram has been seen
+        double alpha; // Smoothing parameter
 
         std::string next_chars; // String of next characters
         std::vector<unsigned> next_chars_count; // Nr. of times next character seen (at corresponding index in string)

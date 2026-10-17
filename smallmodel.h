@@ -7,19 +7,24 @@ class smallmodel {
     private:
         //Attributes
         unsigned k; //Length of kgrams
-        std::vector<std::string> alphabet; //Vector of all characters in text
 
-        std::map<std::string, kgram> kgrams; //Dictionary of kgrams
+        std::string alphabet; // String of all characters in text
+
+        std::map<std::string, kgram> kgrams; // Dictionary of kgrams in text
+
 
     public:
         //Constructor
         smallmodel(unsigned k, std::string filename, unsigned)
 
-        // Method for "training" the model on a given text
+        // Methods for "training" the model on a given text
+        void make_alphabet(std::string contents);
         void train(std::string filename);
 
         
         // Method for generating text based on output length
         std::string generate(unsigned output_length);
+
+        
 
 }
