@@ -10,12 +10,12 @@ class kgram {
         unsigned total_count; // Nr. of times kgram has been seen
         double alpha; // Smoothing parameter
 
-        std::string next_chars; // String of next characters
-        std::vector<unsigned> next_chars_count; // Nr. of times next character seen (at corresponding index in string)
+        std::string alphabet; // Alphabet string
+        std::vector<unsigned> alphabet_count; // Count of how many times each char in the alphabet has been seen after this kgram
 
     public:
         // Constructor
-        kgram(unsigned k, std::string kgram_str);
+        kgram(unsigned k, std::string kgram_str, double alpha, std::string alphabet);
 
         // Methods
 

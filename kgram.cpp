@@ -1,20 +1,17 @@
 #include "kgram.h"
 #include <random>
 
-kgram::kgram(unsigned k, std::string kgram_strm) : k(k), kgram_str(kgram_str), total_count(0) {};
+kgram::kgram(unsigned k, std::string kgram_str, double alpha, std::string alphabet) 
+: k(k), kgram_str(kgram_str), total_count(0), alpha(alpha), alphabet(alphabet) {
+    alphabet_count = std::vector<unsigned>(alphabet.size(), 0); // Initialize alphabet_count with zeros
+};
 
 
 void kgram::appear_in_training(std::string c){
     //Adds one appearance of character c after kgram
 
-    // Get index of c in next_chars or string::npos if not in next_chars
-    size_t index = next_chars.find(c);
-    if(index != string::npos ){
-        next_chars_count[index] += 1; // Adds +1 to counter of c
-    } else{
-        next_chars += c; // Adds c as a next character
-        next_chars_count.push_back(1); //Starts a counter for appearances
-    };
+    // Get index of c in alphabet and adds +1 to counter of c
+    alphabet_count[alphabet.find(c)] += 1; // 
 
     total_count += 1; // Add +1 to total counter of kgram
 };
@@ -37,10 +34,10 @@ std::string kgram::next_kgram() {
     // Example: next_chars "abc" with next_chars_counts {4, 5, 1} -> total count 10. Then P(a) = 4/10. Tal mellan 0 och 9 slumpas, {0,1,2,3} kommer ge "a", {4,5,6,7,8} kommer ge "b", etc. Vi slumpar fram 6. Om vi summerar över vektorn får vi först 4, sedan 4+5=9, vilket är >= 6
 
     int count_sum = 0;
-    for(int i = 0; i< next_chars.length(); i++){
-        count_sum += next_chars_count[i]
+    for(int i = 0; i< alphabet.length(); i++){
+        count_sum += alphabet_count[i]
         if(random_number <= count_sum){
-            c = next_chars[i];
+            c = alphabet[i];
             break
         };
     };
