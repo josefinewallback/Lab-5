@@ -18,7 +18,7 @@ class kgram {
         std::vector<unsigned> alphabet_count; // Count of how many times each char in the alphabet has been seen after this kgram
 
     public:
-        // Constructor
+        // Constructors
         kgram(unsigned k, std::string kgram_str, double alpha, std::string alphabet);
 
         // We need a default constructor and a default copy assignment operator later
