@@ -100,8 +100,6 @@ std::string smallmodel::sample_start_kgram() {
 
 
 std::string smallmodel::generate(unsigned output_length) {
-   
-    
     std::string result = "";
 
     // Sample starting kgram
