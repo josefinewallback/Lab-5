@@ -5,8 +5,11 @@
 #include <random>
 #include <sstream>
 #include <map>
+#include <stdexcept>
 
-// See note at beginning of train and generate method
+// See note at beginning of method
+
+smallmodel::smallmodel(unsigned k, double alpha) : k(k), alpha(alpha) {};
 
 void smallmodel::make_alphabet(std::string contents) {
     // Sort the string, and then deduplicate using std::unique and erase the duplicates to get alphabet
@@ -26,12 +29,23 @@ void smallmodel::train(std::string filename) {
     //Read in training data as one long string
 
     std::ifstream datafile;
-    datafile.open(filename);
+    datafile.open(filename); 
+    
+    // After this, check that the file is open and throw error if not 
+    if(!datafile.is_open()) {
+        throw  std::runtime_error("Failed to open file " + filename);
+    };
+
 
 	std::stringstream buffer;
 
 	buffer << datafile.rdbuf();     //.rdbuf() : Get stream buffer
-    std::string file_contents = buffer.str();
+    std::string file_contents = buffer.str(); 
+    
+    // check that file_contents.length() >= k+1 and throw error if not
+    if(file_contents.length() < k+1) {
+        throw std::invalid_argument("File length is too small for this value of k");
+    };
     
     datafile.close();
     
@@ -80,6 +94,7 @@ std::string smallmodel::sample_start_kgram() {
         // reference is "like the object" but references the same place in the memory (so changes will be made directly to object)
         // pointer is a unsigned int with the memory address (similar, but syntax is different and 'scarier' why? more tied to place in memory rather than object)
     }
+    return ""; // should never happen but is needed for compiler to be happy
 };
 
 
@@ -112,7 +127,7 @@ std::string smallmodel::generate(unsigned output_length) {
                 break; // I.e. alpha = 0 and then current kgram has no transitions and so will stop text generation early. Only possible for the last kgram in training text.
             };
         } else { // kgram in dictionary
-            current_kgram = kgrams[new_kgram_str];
+            current_kgram = kgrams[new_kgram_str]; // Overwrite current_kgram with new kgram (copy the new kgram and assign to current_kgram)
         }
     };
     return result;
