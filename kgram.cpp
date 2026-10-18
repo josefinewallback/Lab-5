@@ -1,6 +1,7 @@
-#include "kgram.h"
+#include <vector>
 #include <random>
 #include <string>
+#include "kgram.h"
 
 //See if can shorten comment on how loop works in next_kgram
 
