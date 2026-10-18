@@ -20,8 +20,10 @@ class kgram {
         // Methods
 
         // Adjusts relevant attributes each time kgram appears in training data
-        void appear_in_training(std::string c); 
+        void appear_in_training(char c); 
         
+        unsigned get_total_count(); // Used to get the starting kgram 
+
         // Return next k-gram ("abcd" -> slumpa fram "e" -> nästa kgram "bcde")
         std::string next_kgram();
     
