@@ -23,7 +23,7 @@ class kgram {
 
         // We need a default constructor and a default copy assignment operator later
         kgram() = default; // Required to use map::operator[] in smallmodel.cpp
-        kgram& operator=(const kgram&) = default; // Required to overwrite/assign new kgram in generate method in smallmodel.cpp
+        kgram& operator=(const kgram&) = default; // Required to overwrite or assign new kgram in generate method in smallmodel.cpp
         // "The map::operator[] will create an item with the given key and a default-constructed value, if an item with the key doesn't exist."
 
         // Methods

@@ -16,7 +16,6 @@ class smallmodel {
         std::string sample_start_kgram(); //Helper method for generate to get starting kgram
         void make_alphabet(std::string contents); //Helper method for train to get possible characters to store in kgrams
 
-
     public:
         //Constructor
         smallmodel(unsigned k, double alpha);
@@ -26,5 +25,4 @@ class smallmodel {
 
         // Method for generating text based on output length
         std::string generate(unsigned output_length);
-
 };

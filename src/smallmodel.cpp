@@ -7,8 +7,6 @@
 #include <map>
 #include <stdexcept>
 
-// See note at beginning of method
-
 smallmodel::smallmodel(unsigned k, double alpha) : k(k), alpha(alpha) {};
 
 void smallmodel::make_alphabet(std::string contents) {
@@ -21,40 +19,34 @@ void smallmodel::make_alphabet(std::string contents) {
 };
 
 void smallmodel::train(std::string filename) {
-    //Notes:
     //Last kgram in entire training data will not be constructud if it does not appear earlier - can cause issue while generating
     //Data string includes "\n", unsure if supposed to or not.
 
-
     //Read in training data as one long string
-
     std::ifstream datafile;
     datafile.open(filename); 
     
-    // After this, check that the file is open and throw error if not 
+    // Check that the file is open and throw error if not 
     if(!datafile.is_open()) {
         throw  std::runtime_error("Failed to open file " + filename);
     };
-
 
 	std::stringstream buffer;
 
 	buffer << datafile.rdbuf();     //.rdbuf() : Get stream buffer
     std::string file_contents = buffer.str(); 
     
-    // check that file_contents.length() >= k+1 and throw error if not
+    // Check that file_contents.length() >= k+1 and throw error if not
     if(file_contents.length() < k+1) {
         throw std::invalid_argument("File length is too small for this value of k");
     };
     
     datafile.close();
     
-
-    //Make alphabet from training data, takes in file_contents string
+    // Make alphabet from training data, takes in file_contents string
     make_alphabet(file_contents); 
 
 
-    
     // Actual training on the data
     std::string curr_kgram_str;
 
@@ -77,6 +69,7 @@ void smallmodel::train(std::string filename) {
 };
 
 std::string smallmodel::sample_start_kgram() {
+    
     // Initialize a random number generator
     std::random_device rd;
     std::mt19937 gen(rd());
@@ -91,19 +84,15 @@ std::string smallmodel::sample_start_kgram() {
         if (counter >= random_number) {
             return kgram_str;
         }
-        // reference is "like the object" but references the same place in the memory (so changes will be made directly to object)
-        // pointer is a unsigned int with the memory address (similar, but syntax is different and 'scarier' why? more tied to place in memory rather than object)
     }
-    return ""; // should never happen but is needed for compiler to be happy
+    return ""; // Should never happen but is needed for compiler to be happy
 };
-
 
 
 std::string smallmodel::generate(unsigned output_length) {
     std::string result = "";
 
     // Sample starting kgram
-
     std::string start = sample_start_kgram();
     
     result += start;

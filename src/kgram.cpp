@@ -3,8 +3,6 @@
 #include <string>
 #include "kgram.h"
 
-//See if can shorten comment on how loop works in next_kgram
-
 kgram::kgram(unsigned k, std::string kgram_str, double alpha, std::string alphabet) 
 : k(k), kgram_str(kgram_str), total_count(0), alpha(alpha), alphabet(alphabet) {
     alphabet_count = std::vector<unsigned>(alphabet.size(), 0); // Initialize alphabet_count with zeros

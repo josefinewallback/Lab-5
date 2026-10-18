@@ -4,14 +4,12 @@
 #include <string>
 
 int main(int argc, char* argv[]){
-    //slm (-a int alpha=0)  int k  string filename  int outout_length
-    //slm -a int alpha  int k  string filename int outout_length
 
     std::string filename;
     int output_length, k;
     double alpha;
 
-    // only read here
+    // Only read in arguments here
     if (argc == 4) { // alpha = 0 path
         alpha = 0.0;
         k = std::stoi(argv[1]);
@@ -48,7 +46,8 @@ int main(int argc, char* argv[]){
 
     smallmodel slm(k,alpha);
     
-    // Train model - errors related to file caught when training model
+    // Train model
+    // Errors related to file caught when training model
     try {
         slm.train(filename);
     } catch (const std::runtime_error& err) { // File cannot be opened
@@ -58,13 +57,9 @@ int main(int argc, char* argv[]){
         std::cerr << "Invalid argument error: " << err.what() << std::endl;
         return 2;
     };
-    // Diff. nr to keep track of diff. errors
-    // Use exit(0) (good) or exit(1) (bad) if not already in main
-    
 
     // Generate text 
     std::cout << slm.generate(output_length) << std::endl;;
     
     return 0; 
-
 };
